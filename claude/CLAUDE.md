@@ -50,6 +50,10 @@ Spotify y Uber.
 - No modificar código de producción al escribir tests: si hay un bug, reportarlo
 
 ## Jira y Git
-- Todo trabajo tiene un ticket de Jira (ej. PROJ-123)
-- El ticket va en el nombre de la rama, en los commits y en el título del PR
-- Commits: `tipo: PROJ-123 descripción` en español (tipos: feat, fix, refactor, test, docs, chore, db)
+- Proyecto de Jira: Marito-Detailing. Clave de tickets: MARITO (ej. MARITO-123)
+- Todo trabajo tiene un ticket de Jira
+- Ramas: `tipo/MARITO-123-descripcion-corta` (minúsculas, guiones, sin acentos)
+  - Tipos: feature, fix, hotfix, refactor, test, docs, chore, db, release
+  - Siempre salen de `main` actualizada, duran pocos días y se borran al fusionar
+- Commits: `tipo: MARITO-123 descripción` en español (tipos: feat, fix, refactor, test, docs, chore, db)
+- PRs: título `MARITO-123 descripción`. Nada se sube directo a `main`; se fusiona con squash merge
