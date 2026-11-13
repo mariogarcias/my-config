@@ -48,3 +48,8 @@ Spotify y Uber.
 - Nunca poner la `service_role` key dentro de la app
 - Correr los tests antes de hacer commit
 - No modificar código de producción al escribir tests: si hay un bug, reportarlo
+
+## Jira y Git
+- Todo trabajo tiene un ticket de Jira (ej. PROJ-123)
+- El ticket va en el nombre de la rama, en los commits y en el título del PR
+- Commits: `tipo: PROJ-123 descripción` en español (tipos: feat, fix, refactor, test, docs, chore, db)
