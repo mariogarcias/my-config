@@ -1,0 +1,7 @@
+alias gst="git status"
+alias gl="git pull"
+alias gp="git push"
+alias ga="git add ."
+alias gc="git commit"
+alias ll="eza --long --icons --sort=type"
+alias cl="claude"
