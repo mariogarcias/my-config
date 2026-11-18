@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validates the frontmatter of every agent in claude/agents/.
+"""Validates the frontmatter of every agent in agents/.
 
 Checks that:
 - each file starts with a valid --- ... --- block;
@@ -11,7 +11,7 @@ import pathlib
 import re
 import sys
 
-AGENTS_DIR = pathlib.Path(__file__).resolve().parent.parent / "claude" / "agents"
+AGENTS_DIR = pathlib.Path(__file__).resolve().parent.parent / "agents"
 MODELS = {"opus", "sonnet", "haiku", "inherit"}
 MENTION = re.compile(r"\b([a-z]+(?:-[a-z]+)+) agent\b")
 
