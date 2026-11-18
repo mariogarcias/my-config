@@ -28,7 +28,7 @@ if [ "$agents_only" = false ]; then
 fi
 
 mkdir -p ~/.claude/agents
-for agent in claude/agents/*.md; do
+for agent in agents/*.md; do
   target=~/.claude/agents/$(basename "$agent")
   backup "$target" "$agent"
   cp "$agent" "$target"
