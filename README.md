@@ -1,28 +1,69 @@
-# my-config
+<div align="center">
 
-Mi configuración de desarrollo para macOS y mis agentes de Claude Code para **Marito Detailing**, una app iOS para reservar servicios de detailing de autos a domicilio.
+# 🤖 Agentes de Claude Code para iOS
 
-## Qué incluye
+**Un equipo de agentes de IA que lleva una feature de iOS de la idea al release:** backlog, TDD, revisión de código, PR y notas de versión.
 
-- **Herramientas** con Homebrew (`Brewfile`): `jq`, `eza`, `git` y `gh`.
-- **Aliases de shell** para Git y para lanzar Claude Code.
-- **`CLAUDE.md`** de Marito Detailing: contexto de la app para que Claude trabaje como yo quiero.
-- **10 agentes de Claude Code** para el flujo de desarrollo, de la idea al release.
+[![Claude Code](https://img.shields.io/badge/Claude_Code-agents-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
+[![Swift](https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&logoColor=white)](https://developer.apple.com/swift/)
+[![Supabase](https://img.shields.io/badge/Supabase-backend-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
+[![macOS](https://img.shields.io/badge/macOS-setup-000000?logo=apple&logoColor=white)](#instalación)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Estructura
+</div>
 
+---
+
+## ¿Qué es esto?
+
+Es mi forma de trabajar como desarrollador iOS, empaquetada para que cualquiera la instale en un minuto:
+
+- **10 agentes de Claude Code** especializados en el ciclo de desarrollo iOS: producto, TDD, pruebas, patrones de diseño, revisión, documentación, Git y releases.
+- **Un `CLAUDE.md` de ejemplo** que muestra cómo dar contexto de proyecto a Claude (stack, arquitectura, convenciones y reglas de seguridad).
+- **Mi setup de terminal en macOS**: herramientas con Homebrew y aliases.
+
+Los uso a diario en **Marito Detailing**, mi app iOS para reservar servicios de detailing de autos a domicilio (SwiftUI, Clean Architecture, Supabase y XCTest).
+
+## El flujo
+
+```mermaid
+flowchart LR
+    A[💡 Idea] --> B[product-backlog]
+    B --> C[feature-tdd]
+    C <--> D[create-unittest<br/>test-doubles]
+    C <--> E[code-review]
+    E -.-> F[design-patterns]
+    C --> G[git-commit-messages]
+    G --> H[pr-description]
+    H --> I[release-notes]
+    I --> J[🚀 App Store]
 ```
-my-config/
-├── Brewfile              # herramientas de línea de comandos
-├── install.sh            # instala herramientas, aliases y agentes
-├── config/
-│   └── aliases.zsh       # aliases de Git y Claude Code
-├── claude/
-│   ├── CLAUDE.md         # contexto de Marito Detailing
-│   ├── agents/           # agentes de Claude Code
-│   └── skills/           # skills (por ahora vacío)
-└── scripts/              # scripts propios (por ahora vacío)
-```
+
+1. `product-backlog` convierte una idea en una historia de usuario con criterios de aceptación.
+2. `feature-tdd` la construye con pruebas primero y commits pequeños.
+3. `code-review` la revisa hasta que queda limpia.
+4. `pr-description` prepara el Pull Request y `release-notes` resume la versión.
+
+## Los agentes
+
+| Etapa | Agente | Qué hace |
+|---|---|---|
+| Producto | [`product-backlog`](claude/agents/product-backlog.md) | Ordena el backlog, escribe historias con criterios de aceptación, parte las grandes y planea sprints |
+| Desarrollo | [`feature-tdd`](claude/agents/feature-tdd.md) | Construye una feature completa con TDD (rojo, verde, refactor) y la pasa por revisión |
+| Pruebas | [`create-unittest`](claude/agents/create-unittest.md) | Escribe y ajusta pruebas unitarias con XCTest |
+| Pruebas | [`test-doubles`](claude/agents/test-doubles.md) | Diseña dobles de prueba (dummy, stub, fake, spy) y revisa su concurrencia |
+| Diseño | [`design-patterns`](claude/agents/design-patterns.md) | Decide si un problema merece un patrón. "Ningún patrón" es una respuesta válida |
+| Revisión | [`code-review`](claude/agents/code-review.md) | Revisión priorizada con foco en arquitectura, Supabase y seguridad. Solo lectura |
+| Documentación | [`swift-docs`](claude/agents/swift-docs.md) | Documenta contratos para Quick Help de Xcode y borra comentarios que repiten el código |
+| Git | [`git-commit-messages`](claude/agents/git-commit-messages.md) | Propone mensajes de commit atómicos con el ticket de Jira |
+| Git | [`pr-description`](claude/agents/pr-description.md) | Redacta título, cuerpo y etiquetas del PR a partir del diff |
+| Release | [`release-notes`](claude/agents/release-notes.md) | Escribe notas de versión para clientes y operadores |
+
+### Decisiones de diseño
+
+- **Cada agente tiene un solo trabajo** y delega en los demás (por ejemplo, `code-review` manda los hallazgos de diseño a `design-patterns`).
+- **Permisos mínimos:** los agentes de revisión y de texto son de solo lectura; solo los que construyen pueden editar archivos.
+- **El modelo según la tarea:** Opus para las decisiones difíciles (TDD, revisión, backlog) y Sonnet para la redacción.
 
 ## Instalación
 
@@ -35,9 +76,55 @@ cd ~/Developer/my-config
 source ~/.zshrc
 ```
 
-El script instala lo del `Brewfile`, copia los aliases a `~/.config/aliases.zsh`, los carga desde `~/.zshrc` y copia los agentes a `~/.claude/agents/`.
+`install.sh` instala lo del `Brewfile`, agrega los aliases a tu `~/.zshrc`, copia el `CLAUDE.md` a `~/.claude/` y los agentes a `~/.claude/agents/`. Antes de reemplazar un archivo que ya tienes, guarda una copia de respaldo con fecha junto a él.
 
-> Los agentes están escritos para Marito Detailing. Para usarlos solo en ese proyecto, cópialos a la carpeta `.claude/agents/` de la app en lugar de dejarlos en `~/.claude/agents/`, que es la carpeta global.
+### Solo quiero los agentes
+
+```bash
+./install.sh --agents
+```
+
+No toca Homebrew, tu `~/.zshrc` ni tu `CLAUDE.md`: solo copia los agentes a `~/.claude/agents/`, que es la carpeta global. Si los quieres solo en un proyecto, cópialos a su carpeta `.claude/agents/`:
+
+```bash
+mkdir -p .claude/agents
+cp ~/Developer/my-config/claude/agents/*.md .claude/agents/
+```
+
+Luego abre Claude Code y escribe `/agents` para verlos.
+
+### Adáptalos a tu proyecto
+
+Los agentes leen el contexto del proyecto desde `CLAUDE.md`. Toma [`claude/CLAUDE.md`](claude/CLAUDE.md) como plantilla y cambia el stack, la estructura de carpetas, los comandos de build y tus convenciones de Git.
+
+## Uso
+
+```bash
+claude                      # sesión normal: pide un agente por su nombre
+claude --agent feature-tdd  # para que feature-tdd pueda delegar en otros agentes
+```
+
+Ejemplos:
+
+```text
+> usa product-backlog para escribir la historia "el cliente puede reprogramar su cita"
+> usa code-review para revisar la rama actual antes del PR
+> usa release-notes para las notas entre v1.2.0 y main
+```
+
+## Estructura
+
+```
+my-config/
+├── Brewfile              # herramientas de línea de comandos
+├── LICENSE               # MIT
+├── install.sh            # instala herramientas, aliases y agentes
+├── config/
+│   └── aliases.zsh       # aliases de Git y Claude Code
+└── claude/
+    ├── CLAUDE.md         # contexto de proyecto (plantilla)
+    └── agents/           # los 10 agentes
+```
 
 ## Aliases
 
@@ -51,57 +138,12 @@ El script instala lo del `Brewfile`, copia los aliases a `~/.config/aliases.zsh`
 | `ll` | `eza --long --icons --sort=type` |
 | `cl` | `claude` |
 
-## La app: Marito Detailing
+## Sobre mí
 
-App iOS con SwiftUI y Clean Architecture, iOS 17+, con Supabase como backend (autenticación, base de datos con RLS, realtime y Edge Functions) y pruebas con XCTest. Los clientes registran sus vehículos y agendan, consultan, cancelan o cambian citas a domicilio. Hay también un módulo para operadores.
+Soy **Mario García**, desarrollador iOS. Trabajo con Swift, SwiftUI, Clean Architecture, TDD y Supabase, y uso agentes de IA para trabajar más rápido sin bajar la calidad.
 
-## Agentes de Claude Code
+¿Te sirvió algún agente? Deja una ⭐ o abre un issue con tus ideas.
 
-Los agentes siguen el recorrido de una feature:
+## Licencia
 
-| Etapa | Agente | Qué hace |
-|---|---|---|
-| Producto | `product-backlog` | Ordena el backlog, escribe historias con criterios de aceptación, parte las grandes y planea sprints |
-| Desarrollo | `feature-tdd` | Construye una feature completa con TDD, con commits pequeños y rondas de revisión |
-| Pruebas | `create-unittest` | Escribe y ajusta pruebas unitarias con XCTest |
-| Pruebas | `test-doubles` | Diseña dobles de prueba (dummy, stub, fake, spy) |
-| Diseño | `design-patterns` | Decide si un problema merece un patrón de diseño. "Ningún patrón" es una respuesta válida |
-| Revisión | `code-review` | Revisa cambios con foco en citas, cliente vs operador, Supabase y seguridad. Solo lectura |
-| Documentación | `swift-docs` | Documenta contratos con comentarios de Quick Help y borra comentarios que repiten el código |
-| Git | `git-commit-messages` | Propone mensajes de commit con el ticket de Jira |
-| Git | `pr-description` | Redacta título, cuerpo y etiquetas del Pull Request |
-| Release | `release-notes` | Escribe notas de versión para clientes y operadores |
-
-### Cómo usarlos
-
-Desde la carpeta de la app:
-
-```bash
-claude                      # sesión normal; pide un agente por su nombre
-claude --agent feature-tdd  # para que feature-tdd pueda delegar en otros agentes
-```
-
-En una sesión, `/agents` muestra los que Claude Code reconoce.
-
-Flujo típico: `product-backlog` convierte una idea en historia, `feature-tdd` la construye con pruebas, `code-review` la revisa, `pr-description` prepara el PR y `release-notes` resume la versión.
-
-## Convenciones de Git y Jira
-
-- Proyecto de Jira: Marito-Detailing. Clave de tickets: `MARITO`.
-- **Ramas:** `tipo/MARITO-123-descripcion-corta`, en minúsculas y con guiones.
-  Tipos: `feature`, `fix`, `hotfix`, `refactor`, `test`, `docs`, `chore`, `db`, `release`.
-- **Commits:** `tipo: MARITO-123 descripción en español`.
-  Tipos: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `db`.
-- **PRs:** título `MARITO-123 descripción`. Nada se sube directo a `main`; se fusiona con squash merge.
-
-## Reglas
-
-- Nunca se suben `.env`, claves de Supabase ni tokens.
-- La `service_role` key no va dentro de la app.
-- Las pruebas se corren antes de cada commit.
-- Cada cambio de esquema o de políticas RLS va como script nuevo en `database/` de la app.
-
-## Pendiente
-
-- Skills propios en `claude/skills/`.
-- Más scripts de apoyo en `scripts/`.
+[MIT](LICENSE). Úsalos, cópialos y adáptalos.
