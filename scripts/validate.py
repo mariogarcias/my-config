@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Validates the frontmatter of every agent in agents/.
+"""Validates the frontmatter of every agent in agents/ and every skill in skills/.
 
 Checks that:
 - each file starts with a valid --- ... --- block;
 - it has `name` and `description`, and `name` matches the file name;
 - `model`, if present, is opus, sonnet, haiku or inherit;
-- every agent mentioned as "<name> agent" in any agent file exists.
+- every agent mentioned as "<name> agent" in any agent file exists;
+- each skills/<name>/SKILL.md has `name` (matching its folder) and `description`.
 """
 import pathlib
 import re
 import sys
 
-AGENTS_DIR = pathlib.Path(__file__).resolve().parent.parent / "agents"
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+AGENTS_DIR = ROOT / "agents"
+SKILLS_DIR = ROOT / "skills"
 MODELS = {"opus", "sonnet", "haiku", "inherit"}
 MENTION = re.compile(r"\b([a-z]+(?:-[a-z]+)+) agent\b")
 
@@ -55,12 +58,25 @@ def main():
             if mentioned not in names:
                 errors.append(f"{path.name}: mentions the '{mentioned}' agent, which does not exist")
 
+    skills = sorted(SKILLS_DIR.glob("*/SKILL.md"))
+    for path in skills:
+        label = f"skills/{path.parent.name}/SKILL.md"
+        fields = read_frontmatter(path.read_text(encoding="utf-8"))
+        if fields is None:
+            errors.append(f"{label}: missing frontmatter (--- ... ---)")
+            continue
+        for field in ("name", "description"):
+            if not fields.get(field):
+                errors.append(f"{label}: missing `{field}`")
+        if fields.get("name") and fields["name"] != path.parent.name:
+            errors.append(f"{label}: `name` is '{fields['name']}', expected '{path.parent.name}'")
+
     if errors:
         print("Errors found:")
         for error in errors:
             print(f"  - {error}")
         return 1
-    print(f"OK: {len(agents)} valid agents")
+    print(f"OK: {len(agents)} valid agents, {len(skills)} valid skills")
     return 0
 
 
