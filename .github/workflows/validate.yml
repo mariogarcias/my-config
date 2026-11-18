@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Claude Code agents
-        run: python3 scripts/validate-agents.py
+      - name: Claude Code agents and skills
+        run: python3 scripts/validate.py
       - name: install.sh
         run: shellcheck install.sh

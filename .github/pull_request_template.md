@@ -5,9 +5,9 @@
 <!-- High level, grouped by area: agents, plugin, templates, docs, CI. -->
 
 ## How I tested it
-<!-- Commands you ran and their result, e.g. `python3 scripts/validate-agents.py`, `claude plugin validate .` -->
+<!-- Commands you ran and their result, e.g. `python3 scripts/validate.py`, `claude plugin validate .` -->
 
 ## Checklist
-- [ ] `python3 scripts/validate-agents.py` passes
+- [ ] `python3 scripts/validate.py` passes
 - [ ] `claude plugin validate .` passes
 - [ ] The README reflects the change

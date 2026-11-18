@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Installs the command-line tools, the shell aliases and the Claude Code agents.
+# Installs the command-line tools, the shell aliases, and the Claude Code agents and skills.
 # Usage: ./install.sh            everything
-#        ./install.sh --agents   agents only (does not touch Homebrew or ~/.zshrc)
+#        ./install.sh --agents   agents and skills only (does not touch Homebrew or ~/.zshrc)
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -34,6 +34,14 @@ for agent in agents/*.md; do
   cp "$agent" "$target"
 done
 echo "Agents installed in ~/.claude/agents/"
+
+for skill in skills/*/SKILL.md; do
+  name=$(basename "$(dirname "$skill")")
+  mkdir -p ~/.claude/skills/"$name"
+  backup ~/.claude/skills/"$name"/SKILL.md "$skill"
+  cp "$skill" ~/.claude/skills/"$name"/SKILL.md
+done
+echo "Skills installed in ~/.claude/skills/"
 
 [ "$agents_only" = false ] && echo "Done. Run: source ~/.zshrc"
 exit 0
