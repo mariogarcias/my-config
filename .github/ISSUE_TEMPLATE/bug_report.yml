@@ -1,0 +1,51 @@
+name: Bug report
+description: Something does not work as expected in an agent, the plugin or install.sh.
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Which agent or file?
+      placeholder: e.g. qa-test-plan, install.sh, plugin install
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical (it breaks something or loses work)
+        - High (it does not work and there is no workaround)
+        - Medium (it does not work but there is a workaround)
+        - Low (cosmetic or minor)
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The exact prompt or command you ran, in order.
+      placeholder: |
+        1. Install with ...
+        2. Run `claude` and ask "use qa-test-plan to ..."
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What happened instead. Paste the relevant output.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Claude Code version, OS, model
