@@ -140,7 +140,9 @@ my-config/
 
 ## Sobre mí
 
-Soy **Mario García**, desarrollador iOS. Trabajo con Swift, SwiftUI, Clean Architecture, TDD y Supabase, y uso agentes de IA para trabajar más rápido sin bajar la calidad.
+Soy **Mario García**. Me especializo en **Product Management** y **QA**, con enfoque en el uso de IA. Uso agentes como estos para convertir ideas en historias de usuario claras, asegurar la calidad con pruebas y revisiones de código, y llevar cada feature hasta producción.
+
+Swift · SwiftUI · Clean Architecture · TDD · Supabase · Claude Code
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Mario_Garc%C3%ADa-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mario-garc%C3%ADa-suarez-051b7a135)
 
