@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "product-qa-agents",
   "version": "1.0.0",
-  "description": "A team of Claude Code agents for product and QA: backlog, user stories, test plans, TDD, code review, PRs and release notes. Project-agnostic: they read your project's context from CLAUDE.md.",
+  "description": "A team of Claude Code agents and skills for product and QA: backlog, user stories, acceptance criteria, test plans, bug reports, TDD, code review, PRs and release notes. Project-agnostic: they read your project's context from CLAUDE.md.",
   "author": {
     "name": "Mario García",
     "url": "https://github.com/mariogarcias"

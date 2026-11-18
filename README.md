@@ -19,6 +19,7 @@ It is how I take a product from idea to production with AI, packaged so anyone c
 
 - **11 Claude Code agents** covering the whole cycle: product, QA, TDD, testing, design patterns, code review, documentation, Git and releases.
 - **Project-agnostic by design.** The agents read everything project-specific (product, user roles, domain risks, commands, conventions) from your `CLAUDE.md`. Swap that file and they work on your app.
+- **2 skills** that Claude uses on its own when it needs them: testable acceptance criteria and reproducible bug reports.
 - **Product and QA templates** for user stories, test plans and bug reports, ready to copy into your tracker.
 - **A real example.** [`examples/marito-detailing/CLAUDE.md`](examples/marito-detailing/CLAUDE.md) is the context I use for **Marito Detailing**, my iOS app for booking at-home car detailing. Read the [case study](docs/case-study-marito-detailing.md) to see the product and quality decisions behind it.
 
@@ -60,6 +61,15 @@ flowchart LR
 | Git | [`pr-description`](agents/pr-description.md) | Writes the PR title, body and labels from the diff |
 | Release | [`release-notes`](agents/release-notes.md) | Writes user-facing release notes for each user role |
 
+## The skills
+
+Agents are teammates you call for a whole job. Skills are short recipes Claude picks up automatically when a task needs them, inside any conversation.
+
+| Skill | When Claude uses it |
+|---|---|
+| [`acceptance-criteria`](skills/acceptance-criteria/SKILL.md) | A story or ticket needs acceptance criteria, or you ask whether one is ready. Writes Given / When / Then criteria and turns vague words into measurable ones |
+| [`bug-report`](skills/bug-report/SKILL.md) | Something is broken, an error is pasted, or you ask to file a bug. Produces a report with severity, environment and exact steps to reproduce |
+
 ### By specialty
 
 - **Product:** `product-backlog` and `release-notes` turn ideas into stories with testable acceptance criteria, and technical changes into notes users understand.
@@ -93,7 +103,7 @@ On Claude Code versions older than 2.1.275, add the marketplace first and then i
 /plugin install product-qa-agents@mariogarcias
 ```
 
-You get all 11 agents, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-qa-agents:qa-test-plan` and so on.
+You get all 11 agents and both skills, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-qa-agents:qa-test-plan` and so on.
 
 ### Install by copying the files
 
@@ -103,7 +113,7 @@ cd ~/Developer/my-config
 ./install.sh --agents
 ```
 
-This copies the agents to `~/.claude/agents/` (available in every project) and does not touch Homebrew or your shell. If an agent with the same name already exists and differs, it saves a dated backup next to it first.
+This copies the agents to `~/.claude/agents/` and the skills to `~/.claude/skills/` (available in every project) and does not touch Homebrew or your shell. If an agent with the same name already exists and differs, it saves a dated backup next to it first.
 
 To use them in a single project instead:
 
@@ -165,10 +175,11 @@ This repo uses them too: [issues](https://github.com/mariogarcias/my-config/issu
 my-config/
 ├── Brewfile                  # command-line tools
 ├── LICENSE                   # MIT
-├── install.sh                # installs tools, aliases and agents
+├── install.sh                # installs tools, aliases, agents and skills
 ├── .claude-plugin/           # plugin and marketplace manifests
 ├── .github/                  # CI, issue and PR templates
 ├── agents/                   # the 11 agents
+├── CHANGELOG.md
 ├── config/
 │   └── aliases.zsh           # Git and Claude Code aliases
 ├── docs/
@@ -177,7 +188,8 @@ my-config/
 │   └── marito-detailing/
 │       └── CLAUDE.md         # example project context
 ├── scripts/
-│   └── validate-agents.py    # used by CI
+│   └── validate.py           # used by CI
+├── skills/                   # the 2 skills
 └── templates/                # user story, test plan, bug report
 ```
 
