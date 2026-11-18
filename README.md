@@ -1,9 +1,10 @@
 <div align="center">
 
-# 🤖 Agentes de Claude Code para iOS
+# 🤖 Agentes de Claude Code: de la idea al release
 
-**Un equipo de agentes de IA que lleva una feature de iOS de la idea al release:** backlog, TDD, revisión de código, PR y notas de versión.
+**Un equipo de agentes de IA para producto y calidad:** backlog, historias de usuario, TDD, revisión de código, PRs y notas de versión. Probados en una app iOS real.
 
+[![Validar](https://github.com/mariogarcias/my-config/actions/workflows/validar.yml/badge.svg)](https://github.com/mariogarcias/my-config/actions/workflows/validar.yml)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-agents-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
 [![Swift](https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&logoColor=white)](https://developer.apple.com/swift/)
 [![Supabase](https://img.shields.io/badge/Supabase-backend-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
@@ -16,9 +17,9 @@
 
 ## ¿Qué es esto?
 
-Es mi forma de trabajar como desarrollador iOS, empaquetada para que cualquiera la instale en un minuto:
+Es mi forma de llevar un producto de la idea a producción con IA, empaquetada para que cualquiera la instale en un minuto:
 
-- **10 agentes de Claude Code** especializados en el ciclo de desarrollo iOS: producto, TDD, pruebas, patrones de diseño, revisión, documentación, Git y releases.
+- **10 agentes de Claude Code** que cubren todo el ciclo: producto, TDD, pruebas, patrones de diseño, revisión, documentación, Git y releases.
 - **Un `CLAUDE.md` de ejemplo** que muestra cómo dar contexto de proyecto a Claude (stack, arquitectura, convenciones y reglas de seguridad).
 - **Mi setup de terminal en macOS**: herramientas con Homebrew y aliases.
 
@@ -64,6 +65,13 @@ flowchart LR
 - **Cada agente tiene un solo trabajo** y delega en los demás (por ejemplo, `code-review` manda los hallazgos de diseño a `design-patterns`).
 - **Permisos mínimos:** los agentes de revisión y de texto son de solo lectura; solo los que construyen pueden editar archivos.
 - **El modelo según la tarea:** Opus para las decisiones difíciles (TDD, revisión, backlog) y Sonnet para la redacción.
+- **Los agentes también se prueban:** en cada PR, un workflow de GitHub Actions valida que cada agente tenga un frontmatter correcto y que no mencione agentes que no existen, y pasa `shellcheck` sobre `install.sh`.
+
+### Por especialidad
+
+- **Producto:** `product-backlog` y `release-notes` traducen ideas en historias con criterios de aceptación y cambios técnicos en notas que entiende el cliente.
+- **Calidad (QA):** `feature-tdd`, `create-unittest`, `test-doubles` y `code-review` aseguran que cada criterio de aceptación tenga una prueba y que nada llegue a `main` sin revisión.
+- **Ingeniería:** `design-patterns`, `swift-docs`, `git-commit-messages` y `pr-description` mantienen el código y el historial limpios.
 
 ## Instalación
 
@@ -119,6 +127,9 @@ my-config/
 ├── Brewfile              # herramientas de línea de comandos
 ├── LICENSE               # MIT
 ├── install.sh            # instala herramientas, aliases y agentes
+├── .github/workflows/    # CI: valida agentes e install.sh
+├── scripts/
+│   └── validar-agentes.py
 ├── config/
 │   └── aliases.zsh       # aliases de Git y Claude Code
 └── claude/
@@ -142,7 +153,13 @@ my-config/
 
 Soy **Mario García**. Me especializo en **Product Management** y **QA**, con enfoque en el uso de IA. Uso agentes como estos para convertir ideas en historias de usuario claras, asegurar la calidad con pruebas y revisiones de código, y llevar cada feature hasta producción.
 
-Swift · SwiftUI · Clean Architecture · TDD · Supabase · Claude Code
+**Lo que aporto a un equipo**
+
+- 🧭 **Producto:** backlog ordenado, historias con criterios de aceptación verificables, priorización y planeación de sprints.
+- ✅ **Calidad:** estrategia de pruebas, TDD, casos límite pensados desde el inicio y revisiones de código con foco en seguridad.
+- 🤖 **IA aplicada:** diseño agentes que automatizan el trabajo repetitivo del ciclo de producto sin perder el control humano.
+
+Swift · SwiftUI · Clean Architecture · TDD · Supabase · Claude Code · Jira · GitHub Actions
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Mario_Garc%C3%ADa-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mario-garc%C3%ADa-suarez-051b7a135)
 
