@@ -1,4 +1,4 @@
-name: Validar
+name: Validate
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
   pull_request:
 
 jobs:
-  validar:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Agentes de Claude Code
-        run: python3 scripts/validar-agentes.py
+      - name: Claude Code agents
+        run: python3 scripts/validate-agents.py
       - name: install.sh
         run: shellcheck install.sh
