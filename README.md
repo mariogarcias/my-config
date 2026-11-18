@@ -19,7 +19,7 @@
 
 Es mi forma de llevar un producto de la idea a producción con IA, empaquetada para que cualquiera la instale en un minuto:
 
-- **10 agentes de Claude Code** que cubren todo el ciclo: producto, TDD, pruebas, patrones de diseño, revisión, documentación, Git y releases.
+- **11 agentes de Claude Code** que cubren todo el ciclo: producto, TDD, pruebas, patrones de diseño, revisión, documentación, Git y releases.
 - **Un `CLAUDE.md` de ejemplo** que muestra cómo dar contexto de proyecto a Claude (stack, arquitectura, convenciones y reglas de seguridad).
 - **Mi setup de terminal en macOS**: herramientas con Homebrew y aliases.
 
@@ -31,6 +31,8 @@ Los uso a diario en **Marito Detailing**, mi app iOS para reservar servicios de 
 flowchart LR
     A[💡 Idea] --> B[product-backlog]
     B --> C[feature-tdd]
+    B --> Q[qa-test-plan]
+    Q --> D
     C <--> D[create-unittest<br/>test-doubles]
     C <--> E[code-review]
     E -.-> F[design-patterns]
@@ -40,7 +42,7 @@ flowchart LR
     I --> J[🚀 App Store]
 ```
 
-1. `product-backlog` convierte una idea en una historia de usuario con criterios de aceptación.
+1. `product-backlog` convierte una idea en una historia de usuario con criterios de aceptación, y `qa-test-plan` la convierte en casos de prueba.
 2. `feature-tdd` la construye con pruebas primero y commits pequeños.
 3. `code-review` la revisa hasta que queda limpia.
 4. `pr-description` prepara el Pull Request y `release-notes` resume la versión.
@@ -50,6 +52,7 @@ flowchart LR
 | Etapa | Agente | Qué hace |
 |---|---|---|
 | Producto | [`product-backlog`](claude/agents/product-backlog.md) | Ordena el backlog, escribe historias con criterios de aceptación, parte las grandes y planea sprints |
+| QA | [`qa-test-plan`](claude/agents/qa-test-plan.md) | Convierte criterios de aceptación en casos de prueba, decide qué se automatiza y arma el checklist de release |
 | Desarrollo | [`feature-tdd`](claude/agents/feature-tdd.md) | Construye una feature completa con TDD (rojo, verde, refactor) y la pasa por revisión |
 | Pruebas | [`create-unittest`](claude/agents/create-unittest.md) | Escribe y ajusta pruebas unitarias con XCTest |
 | Pruebas | [`test-doubles`](claude/agents/test-doubles.md) | Diseña dobles de prueba (dummy, stub, fake, spy) y revisa su concurrencia |
@@ -70,7 +73,7 @@ flowchart LR
 ### Por especialidad
 
 - **Producto:** `product-backlog` y `release-notes` traducen ideas en historias con criterios de aceptación y cambios técnicos en notas que entiende el cliente.
-- **Calidad (QA):** `feature-tdd`, `create-unittest`, `test-doubles` y `code-review` aseguran que cada criterio de aceptación tenga una prueba y que nada llegue a `main` sin revisión.
+- **Calidad (QA):** `qa-test-plan`, `feature-tdd`, `create-unittest`, `test-doubles` y `code-review` aseguran que cada criterio de aceptación tenga una prueba y que nada llegue a `main` sin revisión.
 - **Ingeniería:** `design-patterns`, `swift-docs`, `git-commit-messages` y `pr-description` mantienen el código y el historial limpios.
 
 ## Instalación
@@ -134,7 +137,7 @@ my-config/
 │   └── aliases.zsh       # aliases de Git y Claude Code
 └── claude/
     ├── CLAUDE.md         # contexto de proyecto (plantilla)
-    └── agents/           # los 10 agentes
+    └── agents/           # los 11 agentes
 ```
 
 ## Aliases
