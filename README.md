@@ -19,6 +19,7 @@ It is how I take a product from idea to production with AI, packaged so anyone c
 
 - **11 Claude Code agents** covering the whole cycle: product, QA, TDD, testing, design patterns, code review, documentation, Git and releases.
 - **Project-agnostic by design.** The agents read everything project-specific (product, user roles, domain risks, commands, conventions) from your `CLAUDE.md`. Swap that file and they work on your app.
+- **Product and QA templates** for user stories, test plans and bug reports, ready to copy into your tracker.
 - **A real example.** [`examples/marito-detailing/CLAUDE.md`](examples/marito-detailing/CLAUDE.md) is the context I use for **Marito Detailing**, my iOS app for booking at-home car detailing. Read the [case study](docs/case-study-marito-detailing.md) to see the product and quality decisions behind it.
 
 ## The flow
@@ -47,17 +48,17 @@ flowchart LR
 
 | Stage | Agent | What it does |
 |---|---|---|
-| Product | [`product-backlog`](claude/agents/product-backlog.md) | Grooms the backlog, writes stories with acceptance criteria, splits large ones and plans sprints |
-| QA | [`qa-test-plan`](claude/agents/qa-test-plan.md) | Turns acceptance criteria into test cases, decides what to automate and builds the release checklist |
-| Development | [`feature-tdd`](claude/agents/feature-tdd.md) | Builds a complete feature with TDD (red, green, refactor) and takes it through review |
-| Testing | [`create-unittest`](claude/agents/create-unittest.md) | Writes and adjusts unit tests with XCTest |
-| Testing | [`test-doubles`](claude/agents/test-doubles.md) | Designs test doubles (dummy, stub, fake, spy) and reviews their concurrency |
-| Design | [`design-patterns`](claude/agents/design-patterns.md) | Decides whether a problem deserves a pattern. "No pattern" is a valid answer |
-| Review | [`code-review`](claude/agents/code-review.md) | Prioritized review focused on business rules, access control and security. Read-only |
-| Docs | [`swift-docs`](claude/agents/swift-docs.md) | Documents contracts for Xcode Quick Help and deletes comments that repeat the code |
-| Git | [`git-commit-messages`](claude/agents/git-commit-messages.md) | Proposes atomic commit messages with the ticket |
-| Git | [`pr-description`](claude/agents/pr-description.md) | Writes the PR title, body and labels from the diff |
-| Release | [`release-notes`](claude/agents/release-notes.md) | Writes user-facing release notes for each user role |
+| Product | [`product-backlog`](agents/product-backlog.md) | Grooms the backlog, writes stories with acceptance criteria, splits large ones and plans sprints |
+| QA | [`qa-test-plan`](agents/qa-test-plan.md) | Turns acceptance criteria into test cases, decides what to automate and builds the release checklist |
+| Development | [`feature-tdd`](agents/feature-tdd.md) | Builds a complete feature with TDD (red, green, refactor) and takes it through review |
+| Testing | [`create-unittest`](agents/create-unittest.md) | Writes and adjusts unit tests with XCTest |
+| Testing | [`test-doubles`](agents/test-doubles.md) | Designs test doubles (dummy, stub, fake, spy) and reviews their concurrency |
+| Design | [`design-patterns`](agents/design-patterns.md) | Decides whether a problem deserves a pattern. "No pattern" is a valid answer |
+| Review | [`code-review`](agents/code-review.md) | Prioritized review focused on business rules, access control and security. Read-only |
+| Docs | [`swift-docs`](agents/swift-docs.md) | Documents contracts for Xcode Quick Help and deletes comments that repeat the code |
+| Git | [`git-commit-messages`](agents/git-commit-messages.md) | Proposes atomic commit messages with the ticket |
+| Git | [`pr-description`](agents/pr-description.md) | Writes the PR title, body and labels from the diff |
+| Release | [`release-notes`](agents/release-notes.md) | Writes user-facing release notes for each user role |
 
 ### By specialty
 
@@ -75,9 +76,26 @@ flowchart LR
 
 ## Getting started
 
-Requirements: [Claude Code](https://claude.com/claude-code). The full setup also needs macOS and [Homebrew](https://brew.sh).
+Requirements: [Claude Code](https://claude.com/claude-code).
 
-### Just the agents
+### Install as a plugin (recommended)
+
+Inside Claude Code, run:
+
+```text
+/plugin install product-qa-agents --marketplace mariogarcias/my-config
+```
+
+On Claude Code versions older than 2.1.275, add the marketplace first and then install:
+
+```text
+/plugin marketplace add mariogarcias/my-config
+/plugin install product-qa-agents@mariogarcias
+```
+
+You get all 11 agents, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-qa-agents:qa-test-plan` and so on.
+
+### Install by copying the files
 
 ```bash
 git clone https://github.com/mariogarcias/my-config.git ~/Developer/my-config
@@ -91,7 +109,7 @@ To use them in a single project instead:
 
 ```bash
 mkdir -p .claude/agents
-cp ~/Developer/my-config/claude/agents/*.md .claude/agents/
+cp ~/Developer/my-config/agents/*.md .claude/agents/
 ```
 
 ### Give them your project's context
@@ -106,14 +124,14 @@ Copy [`examples/marito-detailing/CLAUDE.md`](examples/marito-detailing/CLAUDE.md
 | Conventions (including the language for comments, commits and notes) | all |
 | Git and tickets | git-commit-messages, pr-description, feature-tdd |
 
-### Full macOS setup
+### Full macOS setup (my dotfiles)
 
 ```bash
 ./install.sh
 source ~/.zshrc
 ```
 
-Also installs the tools in the `Brewfile` (`jq`, `eza`, `git`, `gh`) and adds the aliases below to your `~/.zshrc`.
+Requires macOS and [Homebrew](https://brew.sh). Also installs the tools in the `Brewfile` (`jq`, `eza`, `git`, `gh`) and adds the aliases below to your `~/.zshrc`.
 
 ## Usage
 
@@ -131,6 +149,16 @@ Inside a session, `/agents` lists the agents Claude Code recognizes. Examples:
 > use release-notes for the notes between v1.2.0 and main
 ```
 
+## Templates
+
+| Template | What it is for |
+|---|---|
+| [User story](templates/user-story.md) | Story with Given / When / Then acceptance criteria, edge cases and a definition of ready |
+| [Test plan](templates/test-plan.md) | Traceability matrix, test cases with priority and automation decision, exit checklist |
+| [Bug report](templates/bug-report.md) | Severity scale, environment, steps to reproduce, expected vs. actual result |
+
+This repo uses them too: [issues](https://github.com/mariogarcias/my-config/issues/new/choose) are filed as bug reports or user stories, and pull requests follow a [template](.github/pull_request_template.md).
+
 ## Structure
 
 ```
@@ -138,9 +166,9 @@ my-config/
 ├── Brewfile                  # command-line tools
 ├── LICENSE                   # MIT
 ├── install.sh                # installs tools, aliases and agents
-├── .github/workflows/        # CI: validates agents and install.sh
-├── claude/
-│   └── agents/               # the 11 agents
+├── .claude-plugin/           # plugin and marketplace manifests
+├── .github/                  # CI, issue and PR templates
+├── agents/                   # the 11 agents
 ├── config/
 │   └── aliases.zsh           # Git and Claude Code aliases
 ├── docs/
@@ -148,8 +176,9 @@ my-config/
 ├── examples/
 │   └── marito-detailing/
 │       └── CLAUDE.md         # example project context
-└── scripts/
-    └── validate-agents.py    # used by CI
+├── scripts/
+│   └── validate-agents.py    # used by CI
+└── templates/                # user story, test plan, bug report
 ```
 
 ## Aliases
