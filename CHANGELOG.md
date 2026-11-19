@@ -11,7 +11,8 @@ First public release.
 - **2 skills:** `acceptance-criteria` writes and reviews testable Given / When / Then criteria, and `bug-report` turns a vague problem into a reproducible report.
 - **Claude Code plugin** `product-team-ai-toolkit`, installable in one command from the `mariogarcias` marketplace.
 - **Product and QA templates** for user stories, test plans and bug reports, plus a pull request template.
-- **Case study** of Marito Detailing, the iOS app the agents were built on.
+- **Case study** of Marito Detailing, the iOS app the agents were built on, and a **walkthrough** that follows one feature through six agents.
+- **Roadmap** and **security policy**.
 - **CI** that validates every agent and skill and runs `shellcheck` on `install.sh` on each pull request.
 - `install.sh --agents` installs only the agents and skills, without touching Homebrew or the shell.
 

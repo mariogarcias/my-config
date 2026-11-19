@@ -1,13 +1,16 @@
 <div align="center">
 
-# 🧰 Product Team AI Toolkit
+<img src="assets/banner.svg" alt="Product Team AI Toolkit: 11 agents and 2 skills for Product Owners, QA and Developers" width="100%">
 
 **AI agents and skills for the whole product team.** Developers, QA and Product Owners each get Claude Code tools for their part of the job, and they hand work to each other from idea to release. Battle-tested on a real iOS app.
 
 [![Validate](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml/badge.svg)](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-agents-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
-[![Swift](https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&logoColor=white)](https://developer.apple.com/swift/)
+[![Version](https://img.shields.io/badge/version-1.0.0-informational)](CHANGELOG.md)
+[![Plugin](https://img.shields.io/badge/install-one_command-success)](#install-as-a-plugin-recommended)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**[See a real feature go from idea to release →](examples/marito-detailing/walkthrough.md)**
 
 </div>
 
@@ -22,6 +25,19 @@
 | **Developer** | Build features test-first, design test doubles, get a prioritized review, and write commits and PR descriptions | `feature-tdd`, `create-unittest`, `test-doubles`, `pr-description` |
 
 The tools share one context file and hand off to each other, so the story the Product Owner writes is the same one QA tests and the developer builds.
+
+## See it in action
+
+The [walkthrough](examples/marito-detailing/walkthrough.md) follows one real feature, "a customer reschedules an appointment", through six agents:
+
+| Step | Agent | Output |
+|---|---|---|
+| 1 | `product-backlog` | A user story with 5 testable acceptance criteria and its edge cases |
+| 2 | `qa-test-plan` | 7 test cases traced to those criteria, 6 of them handed to automation |
+| 3 | `feature-tdd` | The feature built test-first, one commit per cycle |
+| 4 | `code-review` | A security blocker in the database access policy, caught before merge |
+| 5 | `pr-description` | A PR body with use cases, migration notes and test steps |
+| 6 | `release-notes` | Notes a customer understands, with no jargon |
 
 ## What is inside?
 
@@ -144,14 +160,9 @@ Copy [`examples/marito-detailing/CLAUDE.md`](examples/marito-detailing/CLAUDE.md
 | Conventions (including the language for comments, commits and notes) | all |
 | Git and tickets | git-commit-messages, pr-description, feature-tdd |
 
-### Full macOS setup (my dotfiles)
+### Full macOS setup
 
-```bash
-./install.sh
-source ~/.zshrc
-```
-
-Requires macOS and [Homebrew](https://brew.sh). Also installs the tools in the `Brewfile` (`jq`, `eza`, `git`, `gh`) and adds the aliases below to your `~/.zshrc`.
+`./install.sh` without flags also installs my command-line tools and shell aliases. See [docs/dotfiles.md](docs/dotfiles.md).
 
 ## Usage
 
@@ -168,6 +179,16 @@ Inside a session, `/agents` lists the agents Claude Code recognizes. Examples:
 > use code-review to review the current branch before the PR
 > use release-notes for the notes between v1.2.0 and main
 ```
+
+## Roadmap
+
+- [x] 11 agents and 2 skills, packaged as a Claude Code plugin
+- [x] Project-agnostic context through `CLAUDE.md`
+- [x] CI that validates every agent and skill
+- [ ] `prd-writer` agent: from a problem statement to a one-page PRD with success metrics
+- [ ] `accessibility-audit` agent: VoiceOver, Dynamic Type and contrast checks against WCAG
+- [ ] `regression-plan` skill: pick the regression suite for a release from the diff
+- [ ] Context examples for a web app and an API, not only iOS
 
 ## Templates
 
@@ -190,30 +211,22 @@ product-team-ai-toolkit/
 ├── .github/                  # CI and PR template
 ├── agents/                   # the 11 agents
 ├── CHANGELOG.md
+├── SECURITY.md
+├── assets/                   # banner
 ├── config/
 │   └── aliases.zsh           # Git and Claude Code aliases
 ├── docs/
-│   └── case-study-marito-detailing.md
+│   ├── case-study-marito-detailing.md
+│   └── dotfiles.md           # my macOS setup and aliases
 ├── examples/
 │   └── marito-detailing/
-│       └── CLAUDE.md         # example project context
+│       ├── CLAUDE.md         # example project context
+│       └── walkthrough.md    # one feature, idea to release
 ├── scripts/
 │   └── validate.py           # used by CI
 ├── skills/                   # the 2 skills
 └── templates/                # user story, test plan, bug report
 ```
-
-## Aliases
-
-| Alias | Command |
-|---|---|
-| `gst` | `git status` |
-| `gl` | `git pull` |
-| `gp` | `git push` |
-| `ga` | `git add .` |
-| `gc` | `git commit` |
-| `ll` | `eza --long --icons --sort=type` |
-| `cl` | `claude` |
 
 ## About me
 
