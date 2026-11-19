@@ -7,9 +7,9 @@
   "description": "Mario García's Claude Code plugins for product management and QA.",
   "plugins": [
     {
-      "name": "product-qa-agents",
+      "name": "product-team-ai-toolkit",
       "source": "./",
-      "description": "A team of Claude Code agents for product and QA: backlog, user stories, test plans, TDD, code review, PRs and release notes."
+      "description": "AI agents and skills for Developers, QA and Product Owners, from user story to release."
     }
   ]
 }

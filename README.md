@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🤖 AI Agents for Product & QA
+# 🧰 Product Team AI Toolkit
 
-**A team of Claude Code agents that takes a feature from idea to release:** backlog, user stories, test plans, TDD, code review, PRs and release notes. Battle-tested on a real iOS app.
+**AI agents and skills for the whole product team.** Developers, QA and Product Owners each get Claude Code tools for their part of the job, and they hand work to each other from idea to release. Battle-tested on a real iOS app.
 
-[![Validate](https://github.com/mariogarcias/my-config/actions/workflows/validate.yml/badge.svg)](https://github.com/mariogarcias/my-config/actions/workflows/validate.yml)
+[![Validate](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml/badge.svg)](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-agents-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
 [![Swift](https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&logoColor=white)](https://developer.apple.com/swift/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -13,7 +13,17 @@
 
 ---
 
-## What is this?
+## Who is it for?
+
+| If you are a… | Use it to… | Start with |
+|---|---|---|
+| **Product Owner / Product Manager** | Turn ideas into stories with testable acceptance criteria, prioritize the backlog, plan sprints and write release notes users understand | `product-backlog`, `release-notes`, the `acceptance-criteria` skill |
+| **QA** | Turn acceptance criteria into test plans with traceability, decide what to automate, file reproducible bugs and run release regressions | `qa-test-plan`, `code-review`, the `bug-report` skill |
+| **Developer** | Build features test-first, design test doubles, get a prioritized review, and write commits and PR descriptions | `feature-tdd`, `create-unittest`, `test-doubles`, `pr-description` |
+
+The tools share one context file and hand off to each other, so the story the Product Owner writes is the same one QA tests and the developer builds.
+
+## What is inside?
 
 It is how I take a product from idea to production with AI, packaged so anyone can install it in a minute:
 
@@ -93,23 +103,23 @@ Requirements: [Claude Code](https://claude.com/claude-code).
 Inside Claude Code, run:
 
 ```text
-/plugin install product-qa-agents --marketplace mariogarcias/my-config
+/plugin install product-team-ai-toolkit --marketplace mariogarcias/product-team-ai-toolkit
 ```
 
 On Claude Code versions older than 2.1.275, add the marketplace first and then install:
 
 ```text
-/plugin marketplace add mariogarcias/my-config
-/plugin install product-qa-agents@mariogarcias
+/plugin marketplace add mariogarcias/product-team-ai-toolkit
+/plugin install product-team-ai-toolkit@mariogarcias
 ```
 
-You get all 11 agents and both skills, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-qa-agents:qa-test-plan` and so on.
+You get all 11 agents and both skills, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-team-ai-toolkit:qa-test-plan` and so on.
 
 ### Install by copying the files
 
 ```bash
-git clone https://github.com/mariogarcias/my-config.git ~/Developer/my-config
-cd ~/Developer/my-config
+git clone https://github.com/mariogarcias/product-team-ai-toolkit.git ~/Developer/product-team-ai-toolkit
+cd ~/Developer/product-team-ai-toolkit
 ./install.sh --agents
 ```
 
@@ -119,7 +129,7 @@ To use them in a single project instead:
 
 ```bash
 mkdir -p .claude/agents
-cp ~/Developer/my-config/agents/*.md .claude/agents/
+cp ~/Developer/product-team-ai-toolkit/agents/*.md .claude/agents/
 ```
 
 ### Give them your project's context
@@ -172,7 +182,7 @@ This repo uses them too: every pull request follows a [template](.github/pull_re
 ## Structure
 
 ```
-my-config/
+product-team-ai-toolkit/
 ├── Brewfile                  # command-line tools
 ├── LICENSE                   # MIT
 ├── install.sh                # installs tools, aliases, agents and skills
