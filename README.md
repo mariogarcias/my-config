@@ -167,7 +167,7 @@ Inside a session, `/agents` lists the agents Claude Code recognizes. Examples:
 | [Test plan](templates/test-plan.md) | Traceability matrix, test cases with priority and automation decision, exit checklist |
 | [Bug report](templates/bug-report.md) | Severity scale, environment, steps to reproduce, expected vs. actual result |
 
-This repo uses them too: [issues](https://github.com/mariogarcias/my-config/issues/new/choose) are filed as bug reports or user stories, and pull requests follow a [template](.github/pull_request_template.md).
+This repo uses them too: every pull request follows a [template](.github/pull_request_template.md).
 
 ## Structure
 
@@ -177,7 +177,7 @@ my-config/
 ├── LICENSE                   # MIT
 ├── install.sh                # installs tools, aliases, agents and skills
 ├── .claude-plugin/           # plugin and marketplace manifests
-├── .github/                  # CI, issue and PR templates
+├── .github/                  # CI and PR template
 ├── agents/                   # the 11 agents
 ├── CHANGELOG.md
 ├── config/
@@ -219,7 +219,7 @@ Swift · SwiftUI · Clean Architecture · TDD · Supabase · Claude Code · Jira
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Mario_Garc%C3%ADa-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mario-garc%C3%ADa-suarez-051b7a135)
 
-Found an agent useful? Leave a ⭐ or open an issue with your ideas.
+Found an agent useful? Leave a ⭐ or tell me about it on LinkedIn.
 
 ## License
 
