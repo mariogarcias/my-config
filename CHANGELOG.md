@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Credits** to Alfredo Hernández, whose `my-config` the original agents are adapted from, and his copyright notice in `LICENSE` as the MIT License requires.
+
 ## [1.0.0] — 2026-11-18
 
 First public release.

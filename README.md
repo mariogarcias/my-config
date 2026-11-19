@@ -244,6 +244,12 @@ Swift · SwiftUI · Clean Architecture · TDD · Supabase · Claude Code · Jira
 
 Found an agent useful? Leave a ⭐ or tell me about it on LinkedIn.
 
+## Credits
+
+This toolkit started from [Alfredo Hernández](https://github.com/AlfredoHernandez)'s [my-config](https://github.com/AlfredoHernandez/my-config), released under the MIT License. Eight agents are adapted from his: `code-review`, `design-patterns`, `feature-tdd` (from `swift-tdd-architect`), `test-doubles` (from `swift-test-doubles-architect`), `swift-docs`, `git-commit-messages`, `pr-description` and `release-notes`. The repo layout (`Brewfile`, `config/aliases.zsh`, `install.sh`) follows his too.
+
+My work on top of his: the Product and QA agents (`product-backlog`, `qa-test-plan`), `create-unittest`, both skills, the templates, the plugin packaging, the project-agnostic `CLAUDE.md` context, the CI validator, the case study and the walkthrough. Thank you, Alfredo.
+
 ## License
 
 [MIT](LICENSE). Use them, copy them, adapt them.
