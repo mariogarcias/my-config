@@ -1,19 +1,45 @@
 <div align="center">
 
-# 🤖 AI Agents for Product & QA
+<img src="assets/banner.svg" alt="Product Team AI Toolkit: 11 agents and 2 skills for Product Owners, QA and Developers" width="100%">
 
-**A team of Claude Code agents that takes a feature from idea to release:** backlog, user stories, test plans, TDD, code review, PRs and release notes. Battle-tested on a real iOS app.
+**AI agents and skills for the whole product team.** Developers, QA and Product Owners each get Claude Code tools for their part of the job, and they hand work to each other from idea to release. Battle-tested on a real iOS app.
 
-[![Validate](https://github.com/mariogarcias/my-config/actions/workflows/validate.yml/badge.svg)](https://github.com/mariogarcias/my-config/actions/workflows/validate.yml)
+[![Validate](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml/badge.svg)](https://github.com/mariogarcias/product-team-ai-toolkit/actions/workflows/validate.yml)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-agents-D97757?logo=anthropic&logoColor=white)](https://claude.com/claude-code)
-[![Swift](https://img.shields.io/badge/Swift-SwiftUI-F05138?logo=swift&logoColor=white)](https://developer.apple.com/swift/)
+[![Version](https://img.shields.io/badge/version-1.0.0-informational)](CHANGELOG.md)
+[![Plugin](https://img.shields.io/badge/install-one_command-success)](#install-as-a-plugin-recommended)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**[See a real feature go from idea to release →](examples/marito-detailing/walkthrough.md)**
 
 </div>
 
 ---
 
-## What is this?
+## Who is it for?
+
+| If you are a… | Use it to… | Start with |
+|---|---|---|
+| **Product Owner / Product Manager** | Turn ideas into stories with testable acceptance criteria, prioritize the backlog, plan sprints and write release notes users understand | `product-backlog`, `release-notes`, the `acceptance-criteria` skill |
+| **QA** | Turn acceptance criteria into test plans with traceability, decide what to automate, file reproducible bugs and run release regressions | `qa-test-plan`, `code-review`, the `bug-report` skill |
+| **Developer** | Build features test-first, design test doubles, get a prioritized review, and write commits and PR descriptions | `feature-tdd`, `create-unittest`, `test-doubles`, `pr-description` |
+
+The tools share one context file and hand off to each other, so the story the Product Owner writes is the same one QA tests and the developer builds.
+
+## See it in action
+
+The [walkthrough](examples/marito-detailing/walkthrough.md) follows one real feature, "a customer reschedules an appointment", through six agents:
+
+| Step | Agent | Output |
+|---|---|---|
+| 1 | `product-backlog` | A user story with 5 testable acceptance criteria and its edge cases |
+| 2 | `qa-test-plan` | 7 test cases traced to those criteria, 6 of them handed to automation |
+| 3 | `feature-tdd` | The feature built test-first, one commit per cycle |
+| 4 | `code-review` | A security blocker in the database access policy, caught before merge |
+| 5 | `pr-description` | A PR body with use cases, migration notes and test steps |
+| 6 | `release-notes` | Notes a customer understands, with no jargon |
+
+## What is inside?
 
 It is how I take a product from idea to production with AI, packaged so anyone can install it in a minute:
 
@@ -93,23 +119,23 @@ Requirements: [Claude Code](https://claude.com/claude-code).
 Inside Claude Code, run:
 
 ```text
-/plugin install product-qa-agents --marketplace mariogarcias/my-config
+/plugin install product-team-ai-toolkit --marketplace mariogarcias/product-team-ai-toolkit
 ```
 
 On Claude Code versions older than 2.1.275, add the marketplace first and then install:
 
 ```text
-/plugin marketplace add mariogarcias/my-config
-/plugin install product-qa-agents@mariogarcias
+/plugin marketplace add mariogarcias/product-team-ai-toolkit
+/plugin install product-team-ai-toolkit@mariogarcias
 ```
 
-You get all 11 agents and both skills, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-qa-agents:qa-test-plan` and so on.
+You get all 11 agents and both skills, and future updates with `/plugin update`. Plugin agents are namespaced, so they show up as `product-team-ai-toolkit:qa-test-plan` and so on.
 
 ### Install by copying the files
 
 ```bash
-git clone https://github.com/mariogarcias/my-config.git ~/Developer/my-config
-cd ~/Developer/my-config
+git clone https://github.com/mariogarcias/product-team-ai-toolkit.git ~/Developer/product-team-ai-toolkit
+cd ~/Developer/product-team-ai-toolkit
 ./install.sh --agents
 ```
 
@@ -119,7 +145,7 @@ To use them in a single project instead:
 
 ```bash
 mkdir -p .claude/agents
-cp ~/Developer/my-config/agents/*.md .claude/agents/
+cp ~/Developer/product-team-ai-toolkit/agents/*.md .claude/agents/
 ```
 
 ### Give them your project's context
@@ -134,14 +160,9 @@ Copy [`examples/marito-detailing/CLAUDE.md`](examples/marito-detailing/CLAUDE.md
 | Conventions (including the language for comments, commits and notes) | all |
 | Git and tickets | git-commit-messages, pr-description, feature-tdd |
 
-### Full macOS setup (my dotfiles)
+### Full macOS setup
 
-```bash
-./install.sh
-source ~/.zshrc
-```
-
-Requires macOS and [Homebrew](https://brew.sh). Also installs the tools in the `Brewfile` (`jq`, `eza`, `git`, `gh`) and adds the aliases below to your `~/.zshrc`.
+`./install.sh` without flags also installs my command-line tools and shell aliases. See [docs/dotfiles.md](docs/dotfiles.md).
 
 ## Usage
 
@@ -159,6 +180,16 @@ Inside a session, `/agents` lists the agents Claude Code recognizes. Examples:
 > use release-notes for the notes between v1.2.0 and main
 ```
 
+## Roadmap
+
+- [x] 11 agents and 2 skills, packaged as a Claude Code plugin
+- [x] Project-agnostic context through `CLAUDE.md`
+- [x] CI that validates every agent and skill
+- [ ] `prd-writer` agent: from a problem statement to a one-page PRD with success metrics
+- [ ] `accessibility-audit` agent: VoiceOver, Dynamic Type and contrast checks against WCAG
+- [ ] `regression-plan` skill: pick the regression suite for a release from the diff
+- [ ] Context examples for a web app and an API, not only iOS
+
 ## Templates
 
 | Template | What it is for |
@@ -172,7 +203,7 @@ This repo uses them too: every pull request follows a [template](.github/pull_re
 ## Structure
 
 ```
-my-config/
+product-team-ai-toolkit/
 ├── Brewfile                  # command-line tools
 ├── LICENSE                   # MIT
 ├── install.sh                # installs tools, aliases, agents and skills
@@ -180,30 +211,22 @@ my-config/
 ├── .github/                  # CI and PR template
 ├── agents/                   # the 11 agents
 ├── CHANGELOG.md
+├── SECURITY.md
+├── assets/                   # banner
 ├── config/
 │   └── aliases.zsh           # Git and Claude Code aliases
 ├── docs/
-│   └── case-study-marito-detailing.md
+│   ├── case-study-marito-detailing.md
+│   └── dotfiles.md           # my macOS setup and aliases
 ├── examples/
 │   └── marito-detailing/
-│       └── CLAUDE.md         # example project context
+│       ├── CLAUDE.md         # example project context
+│       └── walkthrough.md    # one feature, idea to release
 ├── scripts/
 │   └── validate.py           # used by CI
 ├── skills/                   # the 2 skills
 └── templates/                # user story, test plan, bug report
 ```
-
-## Aliases
-
-| Alias | Command |
-|---|---|
-| `gst` | `git status` |
-| `gl` | `git pull` |
-| `gp` | `git push` |
-| `ga` | `git add .` |
-| `gc` | `git commit` |
-| `ll` | `eza --long --icons --sort=type` |
-| `cl` | `claude` |
 
 ## About me
 
